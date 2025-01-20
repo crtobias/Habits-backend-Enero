@@ -14,6 +14,7 @@ export const getUser = async (req, res) => {
         name: true,
         status: true,
         rol: true,
+        habits:true,
       },
     });
 
