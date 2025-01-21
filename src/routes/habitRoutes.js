@@ -1,12 +1,12 @@
 import express from "express";
-import { createHabit } from "../controllers/habits/createHabit.js";
+import { createHabit,deleteHabit,trackHabitDate } from "../controllers/habits/createHabit.js";
 
 const router = express.Router();
 
 
-router.post("/create",createHabit)
-
-
+router.post("/create",createHabit) // name, goalType, userId por body
+router.delete("/delete/:habitId",deleteHabit) //habit id por params
+router.patch("/addTrack/:habitId",trackHabitDate) //habit id por params
 
 
 const test = (req , res) => {
