@@ -53,71 +53,25 @@ CopiarEditar
 
 El backend escuchará en el puerto definido en el archivo `.env` o el puerto por defecto `3000`.
 
-Endpoints Backend
-Habit Routes
-POST /habit/create
-Crea un nuevo hábito.
-Body:
+### Endpoint Backend:
 
-json
-{
-  "name": "string",
-  "goalType": "string",
-  "userId": "string"
-}
-DELETE /habit/delete/:habitId
-Elimina un hábito.
-Params:
+#### habits routes url/habit/
+router.post("/create",createHabit) // name, goalType, userId por body
+router.delete("/delete/:habitId",deleteHabit) //habit id por params
+router.patch("/addTrack/:habitId",trackHabitDate) //habit id por params
 
-habitId (ID del hábito a eliminar).
-PATCH /habit/addTrack/:habitId
-Agrega un nuevo seguimiento a un hábito.
-Params:
+##### url/users/send-email-password
 
-habitId (ID del hábito a actualizar).
-User Routes
-POST /users/send-email-password
-Recibe un correo y una nueva contraseña, y envía un correo de confirmación para cambiar la contraseña.
-Body:
+recibe por body un newPassword y email y si todo esta bien envia un email de confirmacion para cambiar la contrasena
+##### url/users/create
 
-json
-{
-  "email": "string",
-  "newPassword": "string"
-}
-POST /users/create
-Crea un nuevo usuario.
-Busca si el correo ya existe y, si no, crea el usuario con el estado "pendiente" y envía un correo de verificación.
-Body:
+recibe por body email , name , password busca si existe y si no existe y todo esta en orden lo crea con estado pendiente y envia un mail de verificacion al email de la persona para verificar la cuenta
+##### url/users/login
 
-json
-{
-  "email": "string",
-  "name": "string",
-  "password": "string"
-}
-POST /users/login
-Inicia sesión del usuario.
-Busca al usuario por correo o nombre, verifica la contraseña y comprueba si está verificado. Si todo está correcto, devuelve un token con el ID y rol del usuario.
-Body:
+recibe por body email , password , name busca a la persona por email o name y ve si esta bien el password y si esta verificado el usuario , si todo esta en orden devuelve un token con id y rol
+##### url/users/verify 
 
-json
-{
-  "email": "string",
-  "password": "string"
-}
-POST /users/verify
-Envía un correo de verificación para activar la cuenta del usuario.
-Body:
+recibe un email por body lo busca y envia un mail para verificarlo y poder usar la cuenta
+##### url/users/getUser/:id
 
-json
-Copiar
-Editar
-{
-  "email": "string"
-}
-GET /users/getUser/:id
-Obtiene la información de un usuario por su ID.
-Params:
-
-id (ID del usuario).
+recibe id por params y devuelve toda la informacion
