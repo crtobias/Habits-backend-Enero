@@ -41,68 +41,83 @@ CopiarEditar
 
 1. **Clonar el repositorio**
 
-bash
-
-CopiarEditar
-
 `git clone <url-del-repositorio>`
 
 2. **Instalar dependencias**
-
-bash
-
-CopiarEditar
 
 `npm install`
 
 3. **Iniciar el servidor**
 
-bash
-
-CopiarEditar
-
 `npm start`
 
 El backend escuchará en el puerto definido en el archivo `.env` o el puerto por defecto `3000`.
 
-4. **Pruebas**
+Endpoints Backend
+Habit Routes
+POST /habit/create
+Crea un nuevo hábito.
+Body:
 
-El proyecto incluye pruebas unitarias utilizando **Jest**. Para ejecutar las pruebas:
+json
+{
+  "name": "string",
+  "goalType": "string",
+  "userId": "string"
+}
+DELETE /habit/delete/:habitId
+Elimina un hábito.
+Params:
 
-bash
+habitId (ID del hábito a eliminar).
+PATCH /habit/addTrack/:habitId
+Agrega un nuevo seguimiento a un hábito.
+Params:
 
-CopiarEditar
+habitId (ID del hábito a actualizar).
+User Routes
+POST /users/send-email-password
+Recibe un correo y una nueva contraseña, y envía un correo de confirmación para cambiar la contraseña.
+Body:
 
-`npm run test`
+json
+{
+  "email": "string",
+  "newPassword": "string"
+}
+POST /users/create
+Crea un nuevo usuario.
+Busca si el correo ya existe y, si no, crea el usuario con el estado "pendiente" y envía un correo de verificación.
+Body:
 
-### Endpoints
+json
+{
+  "email": "string",
+  "name": "string",
+  "password": "string"
+}
+POST /users/login
+Inicia sesión del usuario.
+Busca al usuario por correo o nombre, verifica la contraseña y comprueba si está verificado. Si todo está correcto, devuelve un token con el ID y rol del usuario.
+Body:
 
-1. **Registrar un nuevo usuario**:
-    
-    Endpoint: `POST /auth/register`
-    
-    El usuario recibirá un correo de verificación para completar el registro.
-    
-2. **Verificar correo electrónico**:
-    
-    Endpoint: `GET /auth/verify-email/:token`
-    
-    El enlace de verificación se envía al correo del usuario al registrarse.
-    
-3. **Iniciar sesión**:
-    
-    Endpoint: `POST /auth/login`
-    
-    Se requiere el correo y la contraseña para obtener un JWT.
-    
-4. **Recuperar contraseña**:
-    
-    Endpoint: `POST /auth/forgot-password`
-    
-    El usuario recibirá un correo con un enlace para restablecer su contraseña.
-    
-5. **Restablecer contraseña**:
-    
-    Endpoint: `POST /auth/reset-password/:token`
-    
-    El enlace de restablecimiento es enviado al correo del usuario.
+json
+{
+  "email": "string",
+  "password": "string"
+}
+POST /users/verify
+Envía un correo de verificación para activar la cuenta del usuario.
+Body:
+
+json
+Copiar
+Editar
+{
+  "email": "string"
+}
+GET /users/getUser/:id
+Obtiene la información de un usuario por su ID.
+Params:
+
+id (ID del usuario).
